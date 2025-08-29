@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -27,7 +28,6 @@ const LoginPage = () => {
     const usernameRef = useRef<TextInput>(null);
 
     // Hooks: UseCallback (to cache method)
-
     const increment = useCallback(() => {
         setCount(prev => prev + 1);
     }, []);
@@ -35,7 +35,8 @@ const LoginPage = () => {
     // Creating Method
     const loginButtonPressed = () => {
         console.log('Touchable Custom Button Pressed');
-        usernameRef.current?.focus();
+        //usernameRef.current?.focus();
+        router.push('/main')
     }
 
     return (
@@ -50,7 +51,7 @@ const LoginPage = () => {
                 <TextInput style={styles.input} placeholder="Kullanıcı Adı" value={username} onChangeText={(username: string) => setUsername(username)} ref={usernameRef}></TextInput>
                 <TextInput style={styles.input} placeholder="Parola" secureTextEntry={true} value={password} onChangeText={(password: string) => setPassword(password)}></TextInput>
 
-                <TouchableOpacity style={styles.touchableButton} onPress={ () => {loginButtonPressed; increment;} }>
+                <TouchableOpacity style={styles.touchableButton} onPress={loginButtonPressed}>
                     <View>
                         <Text style={styles.buttonText}>Giriş Yap</Text>
                     </View>
