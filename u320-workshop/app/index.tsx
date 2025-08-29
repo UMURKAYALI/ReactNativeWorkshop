@@ -1,23 +1,56 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const LoginPage = () => {
 
-    const [username, setUsername] = useState('');
+    // Array Destructuring
+    const [username, setUsername] = useState('');  // Hooks: UseState
     const [password, setPassword] = useState('');
+    const [count, setCount] = useState(0);
+
+    // Without Array Destructuring
+    const isLoginState = useState('false');
+    const isLogin = isLoginState[0];
+    const setIsLogin = isLoginState[1];
+
+    // Hooks: UseEffects
+
+    useEffect(() => {
+        console.log('Login Page Initialized!')
+    }, []);
+
+    useEffect(() => {
+        console.log('Username updated!')
+    }, [username]);
+
+    // Hooks: UseRef
+    const usernameRef = useRef<TextInput>(null);
+
+    // Hooks: UseCallback (to cache method)
+
+    const increment = useCallback(() => {
+        setCount(prev => prev + 1);
+    }, []);
+
+    // Creating Method
+    const loginButtonPressed = () => {
+        console.log('Touchable Custom Button Pressed');
+        usernameRef.current?.focus();
+    }
 
     return (
         <ScrollView style={styles.mainContainer}>
+
             <View style={styles.container}>
                 <Image source={require('../assets/images/safir_logo_3.png')} style={styles.logo} />
                 <Text style={styles.title}>Oturum Aç</Text>
             </View>
 
             <View style={styles.container}>
-                <TextInput style={styles.input} placeholder="Kullanıcı Adı" value={username} onChangeText={(username: string) => setUsername(username)}></TextInput>
+                <TextInput style={styles.input} placeholder="Kullanıcı Adı" value={username} onChangeText={(username: string) => setUsername(username)} ref={usernameRef}></TextInput>
                 <TextInput style={styles.input} placeholder="Parola" secureTextEntry={true} value={password} onChangeText={(password: string) => setPassword(password)}></TextInput>
 
-                <TouchableOpacity style={styles.touchableButton} onPress={() => { console.log('Touchable Custom Button Pressed') }}>
+                <TouchableOpacity style={styles.touchableButton} onPress={ () => {loginButtonPressed; increment;} }>
                     <View>
                         <Text style={styles.buttonText}>Giriş Yap</Text>
                     </View>
