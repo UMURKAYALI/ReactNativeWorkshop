@@ -15,7 +15,6 @@ const LoginPage = () => {
     const setIsLogin = isLoginState[1];
 
     // Hooks: UseEffects
-
     useEffect(() => {
         console.log('Login Page Initialized!')
     }, []);
