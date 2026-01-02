@@ -1,6 +1,7 @@
 import MessageItem, { Message } from "@/components/Our-Components/message";
+import { router } from "expo-router";
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 const messagelist: Message[] = [
   { messageId: "1", subject: "Hoş geldiniz!", isRead: false },
@@ -62,13 +63,8 @@ const Messages = () => {
     const readMessage = (message: Message) => {
         console.log('Message read');
         message.isRead = true;
+        router.push(`/message/${message.messageId}`);
     }
-
-    /*
-    const readMessages = (message: Message) => {
-        setMessages( messages.map( (msg) => msg.messageId == message.messageId ? {...msg, isRead: true} : msg ) )
-    }
-    */
 
     return (
         <ScrollView style={styles.container}>
@@ -76,7 +72,6 @@ const Messages = () => {
                 {messages.map( (message) => (
                     <MessageItem key={message.messageId} message={message} onClick={ (message: Message) => { readMessage(message)} }/>
                 ) )}
-                <Text> Messages Screen</Text>
             </View>
         </ScrollView>
     )
@@ -89,7 +84,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     body: {
-        flex: 1, alignItems: 'center', margin: 10, borderRadius: 20
+        flex: 1,
+        alignItems: 'center',
+        margin: 10,
+        borderRadius: 20
     }
 })
 

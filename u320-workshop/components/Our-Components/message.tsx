@@ -11,32 +11,28 @@ export interface MessageItemProp {
     onClick: (message: Message) => void
 }
 
-
 const MessageItem = ({ message, onClick }: MessageItemProp) => {
-
     return (
         <TouchableOpacity onPress={() => onClick(message)} style={styles.container}>
             <View style={styles.body}>
                 <Text style={message.isRead ? styles.read : styles.unread}>{message.subject}</Text>
             </View>
         </TouchableOpacity>
-
     )
-
 }
 
 export default MessageItem;
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%'
+        width: '100%',
     },
     body: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 50,
+        height: 70,
         borderWidth: 1,
+        borderRadius: 5,
         margin: 5
     },
     read: {
